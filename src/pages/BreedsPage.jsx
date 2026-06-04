@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from '@mui/material/Container';
 import {
@@ -31,7 +31,7 @@ function BreedsPage() {
     dispatch(fetchAllBreeds());
   }, [dispatch]);
 
-  const renderContent = () => {
+  const content = useMemo(() => {
     if (loading) {
       return <LoadingState />;
     }
@@ -45,7 +45,7 @@ function BreedsPage() {
     }
 
     return <BreedList breeds={breeds} />;
-  };
+  }, [loading, error, breeds, handleRetry]);
 
   return (
     <Container maxWidth="xl" sx={containerSx}>
@@ -54,7 +54,7 @@ function BreedsPage() {
         subtitle="Khám phá thế giới đa dạng của các giống chó trên toàn cầu — thông tin chi tiết về tuổi thọ, cân nặng và đặc tính giống."
         count={!loading && !error ? breeds.length : null}
       />
-      {renderContent()}
+      {content}
     </Container>
   );
 }

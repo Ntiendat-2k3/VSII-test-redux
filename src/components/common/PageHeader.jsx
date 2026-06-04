@@ -1,4 +1,3 @@
-import React from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { alpha } from '@mui/material/styles';
@@ -8,8 +7,8 @@ const gradientDotSx = {
   width: 8,
   height: 8,
   borderRadius: '50%',
-  background: 'linear-gradient(135deg, #00BFA6, #5DF2D6)',
-  boxShadow: '0 0 12px rgba(0, 191, 166, 0.5)',
+  background: (theme) => `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+  boxShadow: (theme) => `0 0 12px ${alpha(theme.palette.primary.main, 0.5)}`,
 };
 
 const containerSx = {

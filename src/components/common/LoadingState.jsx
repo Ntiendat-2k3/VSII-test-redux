@@ -1,4 +1,3 @@
-import React from 'react';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,6 +10,14 @@ const skeletonCardSx = {
   p: 1,
 };
 
+const skeletonStackSx = {
+  mt: 1,
+};
+
+const skeletonRoundedSx = {
+  borderRadius: 2,
+};
+
 function SkeletonCard() {
   return (
     <Card sx={skeletonCardSx}>
@@ -20,10 +27,10 @@ function SkeletonCard() {
           <Skeleton variant="text" width="100%" height={18} />
           <Skeleton variant="text" width="90%" height={18} />
           <Skeleton variant="text" width="60%" height={18} />
-          <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
-            <Skeleton variant="rounded" width={80} height={28} sx={{ borderRadius: 2 }} />
-            <Skeleton variant="rounded" width={100} height={28} sx={{ borderRadius: 2 }} />
-            <Skeleton variant="rounded" width={90} height={28} sx={{ borderRadius: 2 }} />
+          <Stack direction="row" spacing={1} sx={skeletonStackSx}>
+            <Skeleton variant="rounded" width={80} height={28} sx={skeletonRoundedSx} />
+            <Skeleton variant="rounded" width={100} height={28} sx={skeletonRoundedSx} />
+            <Skeleton variant="rounded" width={90} height={28} sx={skeletonRoundedSx} />
           </Stack>
         </Stack>
       </CardContent>

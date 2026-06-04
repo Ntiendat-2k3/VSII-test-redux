@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo, memo } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
@@ -13,6 +13,15 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import AppChip from '../../components/ui/AppChip';
 import AppHeading from '../../components/ui/AppHeading';
 
+const getStringHash = (str) => {
+  if (!str) return 0;
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash);
+};
+
 const cardContentSx = {
   p: 3,
   '&:last-child': { pb: 3 },
@@ -21,7 +30,8 @@ const cardContentSx = {
 const accentBarSx = {
   height: 3,
   borderRadius: '3px 3px 0 0',
-  background: 'linear-gradient(90deg, #00BFA6, #5DF2D6, #FFB74D)',
+  background: (theme) =>
+    `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light}, ${theme.palette.secondary.main})`,
 };
 
 const statBoxSx = {
@@ -57,18 +67,18 @@ const descriptionSx = {
 };
 
 function BreedCard({ breed }) {
-  const { attributes } = breed;
+  const { id, attributes } = breed;
   const { name, description, life, male_weight, female_weight, hypoallergenic } = attributes;
 
-  const animationStyle = useMemo(
+  const animationSx = useMemo(
     () => ({
-      animationDelay: `${Math.random() * 0.3}s`,
+      animationDelay: `${(getStringHash(id) % 300) / 1000}s`,
     }),
-    []
+    [id]
   );
 
   return (
-    <Card className="slide-up" style={animationStyle}>
+    <Card className="slide-up" sx={animationSx}>
       <Box sx={accentBarSx} />
       <CardContent sx={cardContentSx}>
         <Stack spacing={2}>
@@ -133,4 +143,4 @@ function BreedCard({ breed }) {
   );
 }
 
-export default BreedCard;
+export default memo(BreedCard);

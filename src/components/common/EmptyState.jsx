@@ -1,4 +1,3 @@
-import React from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { alpha } from '@mui/material/styles';
@@ -21,13 +20,22 @@ const containerSx = {
   textAlign: 'center',
 };
 
+const iconSx = {
+  fontSize: 36,
+  color: 'text.secondary',
+};
+
+const headingSx = {
+  color: 'text.secondary',
+};
+
 function EmptyState({ message = 'Không tìm thấy giống chó nào.' }) {
   return (
     <Stack sx={containerSx} spacing={3} alignItems="center" className="fade-in">
       <Box sx={iconContainerSx}>
-        <PetsIcon sx={{ fontSize: 36, color: 'text.secondary' }} />
+        <PetsIcon sx={iconSx} />
       </Box>
-      <AppHeading variant="h6" sx={{ color: 'text.secondary' }}>
+      <AppHeading variant="h6" sx={headingSx}>
         {message}
       </AppHeading>
     </Stack>

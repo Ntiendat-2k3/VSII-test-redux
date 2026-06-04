@@ -1,7 +1,7 @@
-import React from 'react';
+import { memo } from 'react';
 import Chip from '@mui/material/Chip';
 
-const AppChip = React.memo(function AppChip(props) {
+const AppChip = memo(function AppChip(props) {
   return <Chip {...props} />;
 });
 

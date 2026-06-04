@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { alpha } from '@mui/material/styles';
@@ -24,9 +24,16 @@ const iconContainerBaseSx = {
 };
 
 function ErrorState({ error, onRetry }) {
+  const errorMsg = useMemo(() => {
+    if (!error) return '';
+    if (typeof error === 'string') return error;
+    if (error.message) return error.message;
+    return String(error);
+  }, [error]);
+
   const isNetworkError = useMemo(
-    () => NETWORK_ERROR_KEYWORDS.some((keyword) => error?.includes(keyword)),
-    [error]
+    () => NETWORK_ERROR_KEYWORDS.some((keyword) => errorMsg.includes(keyword)),
+    [errorMsg]
   );
 
   const iconContainerSx = useMemo(
@@ -52,7 +59,7 @@ function ErrorState({ error, onRetry }) {
 
   const description = isNetworkError
     ? 'Vui lòng kiểm tra kết nối Internet của bạn và thử lại.'
-    : error || 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.';
+    : errorMsg || 'Đã xảy ra lỗi không xác định. Vui lòng thử lại sau.';
 
   const IconComponent = isNetworkError ? WifiOffIcon : ErrorOutlinedIcon;
   const iconColor = isNetworkError ? 'secondary.main' : 'error.main';
